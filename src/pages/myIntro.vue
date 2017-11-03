@@ -28,12 +28,6 @@ export default {
 <style lang="scss" scoped>
 #intro {
 	background-color: #516395;
-	h1 {
-		padding: 60px 0;
-		font-size: 45px;
-		color: #eee;
-		text-align: center;
-	}
 	.area {
 		width: 70%;
 		color: #444;

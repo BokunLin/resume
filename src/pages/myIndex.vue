@@ -1,7 +1,7 @@
 <template>
 	<div id="index">
 		<div class="content">
-			<img class="avatar" src="../assets/img/avatar.jpg" alt="">
+			<img class="avatar" src="/static/img/avatar.jpg" alt="">
 			<h1>{{info.name}}</h1>
 			<p>{{info.intro}}</p>
 			<div class="links">
@@ -46,7 +46,7 @@ export default {
       box-shadow: 2px 2px 10px #ccc;
 		}
 		h1 {
-			line-height: 80px;
+			color: #333;
 		}
 		.links {
 			margin-top: 30px;

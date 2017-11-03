@@ -3,6 +3,7 @@
     <my-index :info="slider.index"></my-index>
     <my-intro :info="slider.intro"></my-intro>
     <my-skills :info="slider.skills"></my-skills>
+    <my-project :info="slider.project"></my-project>
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import myIndex from '@/pages/myIndex';
 import myIntro from '@/pages/myIntro';
 import mySkills from '@/pages/mySkills';
+import myProject from '@/pages/myProject';
 export default {
 	data() {
 		return {
@@ -66,8 +68,61 @@ export default {
 						}
 					]
 				},
-				skills: {
-
+				skills: [
+					{
+						path: '/static/img/html.png',
+						label: 'HTML'
+					},
+					{
+						path: '/static/img/css.png',
+						label: 'CSS'
+					},
+					{
+						path: '/static/img/javascript.png',
+						label: 'JavaScript'
+					},
+					{
+						path: '/static/img/nodejs.png',
+						label: 'Node.Js'
+					},
+					{
+						path: '/static/img/php.png',
+						label: 'PHP'
+					},
+					{
+						path: '/static/img/maya.png',
+						label: 'MAYA'
+					},
+					{
+						path: '/static/img/photoshop.png',
+						label: 'PhotoShop'
+					},
+					{
+						path: '/static/img/ai.png',
+						label: 'illustrator'
+					}
+				],
+				project: {
+					github: 'https://github.com/Kunine/',
+					project: [
+						{
+							label: 'mallBackend',
+							url: '/static/img/avatar.jpg',
+							intro: '使用Vue & elmentUI 开发的一个商城类后台管理模板，包含用户商品管理，发布商品以及商城概况。'
+						},
+						{
+							label: 'resume',
+							url: '/static/img/avatar.jpg',
+							intro: '模仿<a href="https://ijason.cc/">Jason</a>的开源简历，手动使用Vue制作的一个翻页简历。'
+						},
+						{
+							label: 'blog',
+							url: '/static/img/avatar.jpg',
+							intro: '使用Hexo框架开发的一个个人博客，主要用来记录个人学习记录以及整理技能点。'
+						}
+					]
+				},
+				blog: {
 				}
 			}
 		};
@@ -75,7 +130,8 @@ export default {
 	components: {
 		myIndex,
 		myIntro,
-		mySkills
+		mySkills,
+		myProject
 	},
 	created() {
 		this.innerHei = window.innerHeight;
@@ -88,6 +144,14 @@ export default {
 #app {
 	& > div {
 		height: 100%;
+		overflow: hidden;
+	}
+	h1 {
+		padding: 60px 0;
+		font-size: 42px;
+		color: #eee;
+		text-align: center;
+		text-shadow: 2px 2px 10px rgba(0, 0, 0, .1);
 	}
 }
 </style>
