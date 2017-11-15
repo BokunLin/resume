@@ -86,7 +86,7 @@ export default {
     }
 	}
 	h2 {
-		width: 70%;
+		width: 40%;
 		border-radius: 10px;
 		color: #ddd;
 		border: 1px solid #ddd;
@@ -95,6 +95,7 @@ export default {
 		transition: all .2s;
 		padding: 10px 0;
 		text-align: center;
+    cursor: pointer;
 		&:hover {
 			color: #fff;
 			background-color: rgba(0, 0, 0, 0.1);

@@ -1,9 +1,12 @@
 <template>
   <div id="app" :style="{ height: `${innerHei}px` }">
-    <my-index :info="slider.index"></my-index>
-    <my-intro :info="slider.intro"></my-intro>
-    <my-skills :info="slider.skills"></my-skills>
-    <my-project :info="slider.project"></my-project>
+		<kun-slidebar :list="sliderBar" :showPage="showPage" @jumpPage="jumpPage"></kun-slidebar>
+		<div class="content" :style="{ height: `${innerHei}px`, top: `${nowTop}px` }">
+			<my-index :info="slider.index"></my-index>
+			<my-intro :info="slider.intro"></my-intro>
+			<my-skills :info="slider.skills"></my-skills>
+			<my-project :info="slider.project"></my-project>
+		</div>
   </div>
 </template>
 
@@ -12,10 +15,13 @@ import myIndex from '@/pages/myIndex';
 import myIntro from '@/pages/myIntro';
 import mySkills from '@/pages/mySkills';
 import myProject from '@/pages/myProject';
+import kunSlidebar from '@/components/kunSlidebar';
 export default {
 	data() {
 		return {
 			innerHei: 0,
+			showPage: 0,
+			isSliding: false,
 			slider: {
 				index: {
 					name: '林柏坤',
@@ -23,7 +29,7 @@ export default {
 					links: [
 						{
 							label: 'Blog',
-							icon: '#icon-blogease-copy',
+							icon: '#icon-blogease',
 							href: 'https://kunine.github.io/blog'
 						},
 						{
@@ -33,7 +39,7 @@ export default {
 						},
 						{
 							label: 'Coding',
-							icon: '#icon-coding-copy',
+							icon: '#icon-icon',
 							href: 'https://coding.net/u/Kunine'
 						}
 					]
@@ -124,17 +130,72 @@ export default {
 				},
 				blog: {
 				}
-			}
+			},
+			sliderBar: [
+				{
+					label: '个人简介',
+					icon: '#icon-index'
+				},
+				{
+					label: '个人介绍',
+					icon: '#icon-user'
+				},
+				{
+					label: '专业技能',
+					icon: '#icon-jineng-copy'
+				},
+				{
+					label: '项目经历',
+					icon: '#icon-jingli'
+				}
+			],
+			nowTop: 0
 		};
 	},
 	components: {
 		myIndex,
 		myIntro,
 		mySkills,
-		myProject
+		myProject,
+		kunSlidebar
 	},
-	created() {
+	watch: {
+		showPage() {
+			this.delay();
+			this.nowTop = parseInt(this.showPage) * parseInt(this.innerHei) * -1;
+		}
+	},
+	methods: {
+		jumpPage(page) {
+			if (this.isSliding) return;
+			this.showPage = page;
+		},
+		delay() {
+			this.isSliding = true;
+			setTimeout(() => {
+				this.isSliding = false;
+			}, 1000);
+		}
+	},
+	mounted() {
 		this.innerHei = window.innerHeight;
+
+		window.onmousewheel = e => {
+			if (this.isSliding) return;
+			this.delay();
+			e.stopPropagation();
+			e.preventDefault();
+
+			//* 向下滚动
+			if (e.wheelDelta < 40) {
+				this.isSliding = true;
+				if (this.showPage < Object.keys(this.slider).length - 2) this.showPage++;
+			}
+			if (e.wheelDelta > 40) {
+				this.isSliding = true;
+				if (this.showPage > 0) this.showPage--;
+			}
+		};
 	}
 };
 </script>
@@ -142,16 +203,25 @@ export default {
 <style lang="scss">
 @import './assets/css/base';
 #app {
-	& > div {
-		height: 100%;
-		overflow: hidden;
-	}
+	overflow: hidden;
+	position: relative;
 	h1 {
 		padding: 60px 0;
 		font-size: 42px;
 		color: #eee;
 		text-align: center;
 		text-shadow: 2px 2px 10px rgba(0, 0, 0, .1);
+	}
+	.content {
+		position: absolute;
+		top: 0;
+		transition: .8s ease-out;
+		width: 100%;
+		left: 0;
+		& > div {
+			overflow: hidden;
+			height: 100%;
+		}
 	}
 }
 </style>

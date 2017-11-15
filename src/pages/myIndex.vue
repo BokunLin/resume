@@ -33,7 +33,7 @@ export default {
   .content {
     position: absolute;
     width: 100%;
-    top: 40%;
+    top: 45%;
     transform: translateY(-50%);
     text-align: center;
     color: #444;

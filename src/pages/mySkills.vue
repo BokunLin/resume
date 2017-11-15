@@ -54,7 +54,7 @@ export default {
 				font-size: 12px;
 				font-weight: bold;
 				box-shadow: 5px 5px 10px rgba(0, 0, 0, .1);
-				top: 0px;
+				top: -20px;
 				transition: all .5s;
 			}
 			&:hover {
