@@ -1,6 +1,6 @@
 <template>
   <div id="app" :style="{ height: `${innerHei}px` }">
-		<kun-slidebar :list="sliderBar" :showPage="showPage" @jumpPage="jumpPage"></kun-slidebar>
+		<kun-sidebar :list="sliderBar" :showPage="showPage" @jumpPage="jumpPage"></kun-sidebar>
 		<div class="content" :style="{ height: `${innerHei}px`, top: `${nowTop}px` }">
 			<my-index :info="slider.index"></my-index>
 			<my-intro :info="slider.intro"></my-intro>
@@ -15,7 +15,7 @@ import myIndex from '@/pages/myIndex';
 import myIntro from '@/pages/myIntro';
 import mySkills from '@/pages/mySkills';
 import myProject from '@/pages/myProject';
-import kunSlidebar from '@/components/kunSlidebar';
+import kunSidebar from '@/components/kunSidebar';
 export default {
 	data() {
 		return {
@@ -157,7 +157,7 @@ export default {
 		myIntro,
 		mySkills,
 		myProject,
-		kunSlidebar
+		kunSidebar
 	},
 	watch: {
 		showPage() {
@@ -203,6 +203,7 @@ export default {
 <style lang="scss">
 @import './assets/css/base';
 #app {
+	min-width: 340px;
 	overflow: hidden;
 	position: relative;
 	h1 {
@@ -222,6 +223,12 @@ export default {
 			overflow: hidden;
 			height: 100%;
 		}
+	}
+}
+
+@media screen and (max-width: 800px) {
+	#kun-sidebar {
+		display: none;
 	}
 }
 </style>

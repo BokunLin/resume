@@ -1,5 +1,5 @@
 <template>
-	<div id="slideBar">
+	<div id="kun-sidebar">
 		<ul>
 			<li :class="showPage === index ? 'active' : ''" v-for="(item, index) in list" :key="index" @click="jumpPage(index)">
 				<kun-tips placement="left" :content="item.label">
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#slideBar {
+#kun-sidebar {
   z-index: 10;
   position: fixed;
   right: 30px;

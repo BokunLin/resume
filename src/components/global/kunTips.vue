@@ -1,8 +1,8 @@
 <template>
-	<div id="toolTips">
+	<div class="kun-tips">
 		<slot></slot>
-		<transition :name="placement">
-			<div class="toolTip" :style="translateDirection" v-show="isShow">
+		<transition name="fade">
+			<div v-if="tipsShow" class="toolTip" :style="translateDirection" v-show="isShow">
 				<span>{{content}}</span>
 				<div :class="placement"></div>
 			</div>
@@ -12,9 +12,11 @@
 
 <script>
 export default {
+	name: 'kunTips',
 	data() {
 		return {
-			isShow: false
+			isShow: false,
+			tipsShow: true
 		};
 	},
 	mounted() {
@@ -24,6 +26,36 @@ export default {
 		this.$slots.default[0].elm.onmouseleave = () => {
 			this.isShow = false;
 		};
+	},
+	methods: {
+		delay(fn, delay, execAsap) {
+			//* fn 调用方法, delay 延迟, execAsap 是否开始时调用
+			let timeout;
+			return (...args) => {
+				const _this = this;
+				//* 开始时触发
+				function delayed() {
+					if (!execAsap) fn.apply(_this, args);
+					timeout = null;
+				}
+				if (timeout) { clearTimeout(timeout); } else if (execAsap) { fn.apply(_this, args); }
+				timeout = setTimeout(delayed, delay || 100);
+			};
+		},
+		checkWidth(e = undefined) {
+			const innerWid = e && e.target.innerWidth || window.innerWidth;
+			if (innerWid >= this.showWidth) {
+				this.tipsShow = false;
+			} else {
+				this.tipsShow = true;
+			}
+		}
+	},
+	created() {
+		this.checkWidth();
+		if (this.showWidth) {
+			window.onresize = this.delay(this.checkWidth, 500, false);
+		}
 	},
 	computed: {
 		translateDirection() {
@@ -51,17 +83,26 @@ export default {
 		}
 	},
 	props: {
-		placement: String,
-		content: String
+		placement: {
+			type: String,
+			required: true
+		},
+		content: {
+			type: String,
+			required: true
+		},
+		showWidth: Number
 	}
 };
 </script>
 
 
 <style lang="scss" scoped>
-#toolTips {
+.kun-tips {
+	position: relative;
   .toolTip {
     position: absolute;
+		z-index: 10;
     display: inline-block;
     font-size: 12px;
 		width: auto;
@@ -108,13 +149,13 @@ export default {
       border-right-color: #333;
     }
   }
-	.left-enter-active {
+	.fade-enter-active {
 		transition: opacity .3s;
 	}
-	.left-leave-active {
+	.fade-leave-active {
 		transition: opacity .3s;
 	}
-	.left-enter, .left-leave-to {
+	.fade-enter, .fade-leave-to {
 		opacity: 0;
 	}
 }

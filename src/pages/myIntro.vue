@@ -7,10 +7,12 @@
 		<div class="area">
 			<ul class="clearfix">
 				<li v-for="(item, index) in info.icons" :key="index">
-						<svg class="icon" aria-hidden="true">
-							<use :href="item.icon"></use>
-						</svg>
-						<p>{{item.label}}</p>
+						<kun-tips placement="bottom" :content="item.label" :showWidth="800">
+							<svg class="icon" aria-hidden="true">
+								<use :href="item.icon"></use>
+							</svg>
+							<p>{{item.label}}</p>
+						</kun-tips>
 				</li>
 			</ul>
 		</div>
@@ -35,17 +37,16 @@ export default {
 		border-radius: 5px;
 		margin: 0 auto;
 		box-shadow: 5px 5px 10px rgba(0, 0, 0, .1);
-		padding: 25px;
+		padding: 1.5rem 1rem;
 		box-sizing: border-box;
 		margin-bottom: 40px;
 		font-size: 14px;
 		ul {
 			text-align: center;
-			padding: 0 10%;
 			li {
 				width: 33%;
 				float: left;
-				padding: 0 20px;
+				padding: 0 1rem;
 				margin: 20px 0;
 				box-sizing: border-box;
 				.icon {
@@ -53,6 +54,14 @@ export default {
 					margin-bottom: 10px;
 				}
 			}
+		}
+	}
+}
+
+@media screen and (max-width: 940px){
+	li {
+		p {
+			display: none;
 		}
 	}
 }
