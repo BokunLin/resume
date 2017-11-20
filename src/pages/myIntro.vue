@@ -7,12 +7,12 @@
 		<div class="area">
 			<ul class="clearfix">
 				<li v-for="(item, index) in info.icons" :key="index">
-						<kun-tips placement="bottom" :content="item.label" :showWidth="800">
-							<svg class="icon" aria-hidden="true">
-								<use :href="item.icon"></use>
-							</svg>
-							<p>{{item.label}}</p>
-						</kun-tips>
+					<kun-tips placement="bottom" :content="item.label" :showWidth="800">
+						<svg class="icon" aria-hidden="true">
+							<use :href="item.icon"></use>
+						</svg>
+						<p>{{item.label}}</p>
+					</kun-tips>
 				</li>
 			</ul>
 		</div>

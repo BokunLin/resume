@@ -24,37 +24,37 @@ export default {
 	background: #ffc371;
 	background: linear-gradient(270deg,#ff5f6d,#ffc371);
 	ul {
-		width: 920px;
+		max-width: 920px;
+		width: 80%;
 		margin: 0 auto;
 		text-align: center;
 		li {
 			position: relative;
+			display: inline-block;
+			max-width: 170px;
+			width: 20%;
 			box-sizing: border-box;
-			float: left;
 			box-shadow: 5px 5px 10px rgba(0, 0, 0, .1);
-			margin: 40px 30px;
-			width: 170px;
-			height: 170px;
+			margin: 40px 20px;
 			background: linear-gradient(180deg, #fff, #f0f0f0);
 			border-radius: 50%;
-			display: flex;
-			justify-content: center;
-    	align-items: center;
 			img {
 				width: 100%;
 			}
 			span {
 				position: absolute;
 				display: block;
+				min-width: 100px;
 				opacity: 0;
 				background-color: #fff;
-				width: 50%;
-				padding: 10px 20px;
+				padding: 10px 10%;
 				border-radius: 5px;
-				font-size: 12px;
+				font-size: 1vw;
 				font-weight: bold;
 				box-shadow: 5px 5px 10px rgba(0, 0, 0, .1);
 				top: -20px;
+				left: 50%;
+				transform: translateX(-50%);
 				transition: all .5s;
 			}
 			&:hover {

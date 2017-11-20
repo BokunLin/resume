@@ -2,9 +2,11 @@
 	<div class="kun-tips">
 		<slot></slot>
 		<transition name="fade">
-			<div v-if="tipsShow" class="toolTip" :style="translateDirection" v-show="isShow">
-				<span>{{content}}</span>
-				<div :class="placement"></div>
+			<div v-show="tipsShow">
+				<div class="toolTip" :style="translateDirection" v-show="isShow">
+					<span>{{content}}</span>
+					<div :class="placement"></div>
+				</div>
 			</div>
 		</transition>
 	</div>
@@ -26,13 +28,17 @@ export default {
 		this.$slots.default[0].elm.onmouseleave = () => {
 			this.isShow = false;
 		};
+		this.checkWidth();
+		if (this.showWidth) {
+			window.onresize = this.delay(this.checkWidth, 500, false);
+		}
 	},
 	methods: {
 		delay(fn, delay, execAsap) {
+			const _this = this;
 			//* fn 调用方法, delay 延迟, execAsap 是否开始时调用
 			let timeout;
 			return (...args) => {
-				const _this = this;
 				//* 开始时触发
 				function delayed() {
 					if (!execAsap) fn.apply(_this, args);
@@ -49,12 +55,6 @@ export default {
 			} else {
 				this.tipsShow = true;
 			}
-		}
-	},
-	created() {
-		this.checkWidth();
-		if (this.showWidth) {
-			window.onresize = this.delay(this.checkWidth, 500, false);
 		}
 	},
 	computed: {

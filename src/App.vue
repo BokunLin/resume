@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style="{ height: `${innerHei}px` }">
+  <div id="app" :style="{ height: `${innerHei}px` }" @touchmove="touchmove" @touchend="touchend">
 		<kun-sidebar :list="sliderBar" :showPage="showPage" @jumpPage="jumpPage"></kun-sidebar>
 		<div class="content" :style="{ height: `${innerHei}px`, top: `${nowTop}px` }">
 			<my-index :info="slider.index"></my-index>
@@ -46,7 +46,8 @@ export default {
 				},
 				intro: {
 					title: '个人介绍',
-					intro: '高中接触 Web 开发和设计，上了大学正式学习前端、PHP、Node.js，大一开始在校不间断负责多个公众号、小程序的开发。目前在腾讯公司 Web 前端开发岗位实习。',
+					intro:
+            '高中接触 Web 开发和设计，上了大学正式学习前端、PHP、Node.js，大一开始在校不间断负责多个公众号、小程序的开发。目前在腾讯公司 Web 前端开发岗位实习。',
 					icons: [
 						{
 							icon: '#icon-birthday',
@@ -119,7 +120,8 @@ export default {
 						{
 							label: 'resume',
 							url: '/static/img/avatar.jpg',
-							intro: '模仿<a href="https://ijason.cc/">Jason</a>的开源简历，手动使用Vue制作的一个翻页简历。'
+							intro:
+                '模仿<a href="https://ijason.cc/">Jason</a>的开源简历，手动使用Vue制作的一个翻页简历。'
 						},
 						{
 							label: 'blog',
@@ -128,8 +130,7 @@ export default {
 						}
 					]
 				},
-				blog: {
-				}
+				blog: {}
 			},
 			sliderBar: [
 				{
@@ -166,6 +167,30 @@ export default {
 		}
 	},
 	methods: {
+		touchmove(e) {
+			e.preventDefault();
+			if (this.touchStartX !== 0) return;
+			this.touchStartX = e.changedTouches[0].screenY;
+		},
+		touchend(e) {
+			e.preventDefault();
+
+			if (this.touchStartX === 0) return;
+
+			const touchEndX = e.changedTouches[0].screenY;
+
+			if (this.isSliding) return;
+
+			if (this.touchStartX - touchEndX > 80) {
+				this.isSliding = true;
+				if (this.showPage < Object.keys(this.slider).length - 2) { this.showPage++; }
+			} else if (this.touchStartX - touchEndX < -80) {
+				this.isSliding = true;
+				if (this.showPage > 0) this.showPage--;
+			}
+
+			this.touchStartX = 0;
+		},
 		jumpPage(page) {
 			if (this.isSliding) return;
 			this.showPage = page;
@@ -189,7 +214,7 @@ export default {
 			//* 向下滚动
 			if (e.wheelDelta < 40) {
 				this.isSliding = true;
-				if (this.showPage < Object.keys(this.slider).length - 2) this.showPage++;
+				if (this.showPage < Object.keys(this.slider).length - 2) { this.showPage++; }
 			}
 			if (e.wheelDelta > 40) {
 				this.isSliding = true;
@@ -201,34 +226,34 @@ export default {
 </script>
 
 <style lang="scss">
-@import './assets/css/base';
+@import "./assets/css/base";
 #app {
-	min-width: 340px;
-	overflow: hidden;
-	position: relative;
-	h1 {
-		padding: 60px 0;
-		font-size: 42px;
-		color: #eee;
-		text-align: center;
-		text-shadow: 2px 2px 10px rgba(0, 0, 0, .1);
-	}
-	.content {
-		position: absolute;
-		top: 0;
-		transition: .8s ease-out;
-		width: 100%;
-		left: 0;
-		& > div {
-			overflow: hidden;
-			height: 100%;
-		}
-	}
+  min-width: 340px;
+  overflow: hidden;
+  position: relative;
+  h1 {
+    padding: 60px 0;
+    font-size: 42px;
+    color: #eee;
+    text-align: center;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  .content {
+    position: absolute;
+    top: 0;
+    transition: 0.8s ease-out;
+    width: 100%;
+    left: 0;
+    & > div {
+      overflow: hidden;
+      height: 100%;
+    }
+  }
 }
 
 @media screen and (max-width: 800px) {
-	#kun-sidebar {
-		display: none;
-	}
+  #kun-sidebar {
+    display: none;
+  }
 }
 </style>
