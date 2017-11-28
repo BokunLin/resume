@@ -1,7 +1,7 @@
 <template>
 	<div id="project">
 		<h1>项目经历</h1>
-		<div class="cardContainer">
+		<div class="cardContainer" @touchmove="touchmove" @touchend="touchend" :style="{ transform: `translateX(-${translateX}px)` }">
 			<div  class="card" v-for="item in info.project" :key="item.label">
 				<img :src="item.url" :alt="item.label">
 				<p v-html="item.intro"></p>
@@ -23,8 +23,38 @@
 
 <script>
 export default {
+	data() {
+		return {
+			page: 0,
+			touchstartX: 0,
+			translateX: 0
+		};
+	},
 	props: {
 		info: Object
+	},
+	methods: {
+		jumpPage(e) {
+			this.translateX = this.page * 250;
+		},
+		touchmove(e) {
+			e.preventDefault();
+			if (this.touchstartX !== 0) return;
+			this.touchstartX = e.changedTouches[0].screenX;
+		},
+		touchend(e) {
+			e.preventDefault();
+			if (this.touchStartX === 0) return;
+
+			const touchEndX = e.changedTouches[0].screenX;
+			if (this.touchstartX - touchEndX > 30) {
+				if (this.page < 2) this.jumpPage(this.page++);
+			} else if (this.touchstartX - touchEndX < -30) {
+				if (this.page > 0) this.jumpPage(this.page--);
+			}
+
+			this.touchstartX = 0;
+		}
 	}
 };
 </script>
@@ -32,12 +62,14 @@ export default {
 
 <style lang="scss" scoped>
 #project {
+  position: relative;
   background: #859398;
   background: linear-gradient(270deg, #283048, #859398);
   .cardContainer {
     display: flex;
     align-items: center;
-    justify-content: center;
+    transition: transform .2s ease;
+    justify-content: space-between;
     .card {
       position: relative;
       box-sizing: border-box;
@@ -45,10 +77,9 @@ export default {
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
       background-color: #fff;
       border-radius: 5px;
-      margin: 0 10px;
-      width: 280px;
+      width: 250px;
       padding-bottom: 50px;
-      height: 400px;
+      height: 350px;
       text-align: center;
       img {
         border-radius: 5px;
@@ -84,17 +115,24 @@ export default {
         }
       }
     }
+    @media screen and (max-width: 800px){
+      margin: 0 0 0 20px;
+      width: 780px;
+      transform: translateX(0);
+    }
 	}
 	h2 {
-		width: 40%;
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+		width: 60%;
 		border-radius: 10px;
 		color: #ddd;
 		border: 1px solid #ddd;
-		margin: 0 auto;
-		margin-top: 100px;
-		transition: all .2s;
 		padding: 10px 0;
 		text-align: center;
+    font-size: 2vw;
     cursor: pointer;
 		&:hover {
 			color: #fff;

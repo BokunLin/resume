@@ -28,12 +28,14 @@ export default {
 		width: 80%;
 		margin: 0 auto;
 		text-align: center;
+		transition: all .5s;
 		li {
 			position: relative;
 			display: inline-block;
 			max-width: 170px;
 			width: 20%;
 			box-sizing: border-box;
+			transition: all .5s;
 			box-shadow: 5px 5px 10px rgba(0, 0, 0, .1);
 			margin: 40px 20px;
 			background: linear-gradient(180deg, #fff, #f0f0f0);
@@ -77,6 +79,12 @@ export default {
 			}
 			&:nth-child(8) {
 				background: #261300; border: 5px solid #ff7c00; 
+			}
+		}
+		@media screen and (max-width: 374px){
+			width: 90%;
+			li {
+				margin: 40px 10px;
 			}
 		}
 	}

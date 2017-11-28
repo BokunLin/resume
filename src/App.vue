@@ -1,7 +1,7 @@
 <template>
   <div id="app" :style="{ height: `${innerHei}px` }" @touchmove="touchmove" @touchend="touchend">
 		<kun-sidebar :list="sliderBar" :showPage="showPage" @jumpPage="jumpPage"></kun-sidebar>
-		<div class="content" :style="{ height: `${innerHei}px`, top: `${nowTop}px` }">
+		<div class="content" :style="{ height: `${innerHei}px`, transform: `translateY(${nowTop}px)` }">
 			<my-index :info="slider.index"></my-index>
 			<my-intro :info="slider.intro"></my-intro>
 			<my-skills :info="slider.skills"></my-skills>
@@ -25,7 +25,7 @@ export default {
 			slider: {
 				index: {
 					name: '林柏坤',
-					intro: '大三学生, 前端进阶中...',
+					intro: '大三学生, 前端初学探索中...',
 					links: [
 						{
 							label: 'Blog',
@@ -47,7 +47,7 @@ export default {
 				intro: {
 					title: '个人介绍',
 					intro:
-            '高中接触 Web 开发和设计，上了大学正式学习前端、PHP、Node.js，大一开始在校不间断负责多个公众号、小程序的开发。目前在腾讯公司 Web 前端开发岗位实习。',
+            '大一开始接触前端开发，结合学校课程，向着前端路线不断探索中，学习接触过JavaScript、NodeJs、PHP、Java...，目前正在准备专升本复习中。',
 					icons: [
 						{
 							icon: '#icon-birthday',
@@ -114,19 +114,19 @@ export default {
 					project: [
 						{
 							label: 'mallBackend',
-							url: '/static/img/avatar.jpg',
+							url: '/static/img/mallBackend.jpg',
 							intro: '使用Vue & elmentUI 开发的一个商城类后台管理模板，包含用户商品管理，发布商品以及商城概况。'
 						},
 						{
-							label: 'resume',
-							url: '/static/img/avatar.jpg',
+							label: 'RedPacket',
+							url: '/static/img/RedPacket.jpg',
 							intro:
-                '模仿<a href="https://ijason.cc/">Jason</a>的开源简历，手动使用Vue制作的一个翻页简历。'
+                '使用 VueJs 开发的微信端手机端红包分享Web应用。'
 						},
 						{
-							label: 'blog',
-							url: '/static/img/avatar.jpg',
-							intro: '使用Hexo框架开发的一个个人博客，主要用来记录个人学习记录以及整理技能点。'
+							label: 'Vue-HomeEconomicsWebsides',
+							url: '/static/img/Vue-HomeEconomicsWebsides.jpg',
+							intro: '使用 HTML/CSS/JavaScript 开发的自使用Web官网。'
 						}
 					]
 				},
@@ -181,10 +181,10 @@ export default {
 
 			if (this.isSliding) return;
 
-			if (this.touchStartX - touchEndX > 80) {
+			if (this.touchStartX - touchEndX > 60) {
 				this.isSliding = true;
 				if (this.showPage < Object.keys(this.slider).length - 2) { this.showPage++; }
-			} else if (this.touchStartX - touchEndX < -80) {
+			} else if (this.touchStartX - touchEndX < -60) {
 				this.isSliding = true;
 				if (this.showPage > 0) this.showPage--;
 			}
@@ -228,20 +228,32 @@ export default {
 <style lang="scss">
 @import "./assets/css/base";
 #app {
-  min-width: 340px;
+  min-width: 320px;
   overflow: hidden;
   position: relative;
   h1 {
     padding: 60px 0;
-    font-size: 42px;
+		transition: all .5s ease-in;
     color: #eee;
     text-align: center;
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+		@media screen and (max-width: 1200px){
+			padding: 50px 0;
+		}
+		@media screen and (max-width: 10254px){
+			padding: 40px 0;
+		}
+		@media screen and (max-width: 800px){
+			padding: 30px 0;
+		}
+		@media screen and (max-width: 374px){
+			padding: 20px 0;
+		}
   }
   .content {
     position: absolute;
     top: 0;
-    transition: 0.8s ease-out;
+    transition: all .5s ease-out;
     width: 100%;
     left: 0;
     & > div {

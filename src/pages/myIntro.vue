@@ -7,12 +7,10 @@
 		<div class="area">
 			<ul class="clearfix">
 				<li v-for="(item, index) in info.icons" :key="index">
-					<kun-tips placement="bottom" :content="item.label" :showWidth="800">
-						<svg class="icon" aria-hidden="true">
-							<use :href="item.icon"></use>
-						</svg>
-						<p>{{item.label}}</p>
-					</kun-tips>
+					<svg class="icon" aria-hidden="true">
+						<use :href="item.icon"></use>
+					</svg>
+					<p>{{item.label}}</p>
 				</li>
 			</ul>
 		</div>
@@ -41,27 +39,52 @@ export default {
 		box-sizing: border-box;
 		margin-bottom: 40px;
 		font-size: 14px;
+		&>p {
+			line-height: 2;
+			transition: all .5s;
+		}
 		ul {
 			text-align: center;
+			display: flex;
+			flex-wrap: wrap;
+				transition: all .5s;
+			justify-content: center;
 			li {
-				width: 33%;
-				float: left;
-				padding: 0 1rem;
-				margin: 20px 0;
-				box-sizing: border-box;
+				margin: 20px 40px;
+				min-width: 165px;
+				transition: all .5s;
 				.icon {
 					font-size: 30px;
 					margin-bottom: 10px;
 				}
 			}
+			@media screen and (max-width: 767px){
+				li {
+					margin: 10px 20px;
+				}
+			}
 		}
-	}
-}
-
-@media screen and (max-width: 940px){
-	li {
-		p {
-			display: none;
+		@media screen and (max-width: 650px){
+			font-size: 12px;
+			padding: 10px;
+			ul {
+				padding-left: 10px;
+				li {
+					margin: 5px 0px;
+					font-size: 12px;
+					width: 100%;
+					text-align: left;
+					.icon {
+						margin: 0 10px 0 0;
+						display: inline-block;
+						font-size: 24px;
+					}
+					p {
+						display: inline-block;
+						line-height: 30px;
+					}
+				}
+			}
 		}
 	}
 }

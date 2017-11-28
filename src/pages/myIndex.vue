@@ -30,6 +30,7 @@ export default {
 <style lang="scss">
 #index {
   position: relative;
+	background-color: #eee;
   .content {
     position: absolute;
     width: 100%;
