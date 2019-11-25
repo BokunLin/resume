@@ -2,7 +2,7 @@
 
 > My Resume
 
-[在线访问](https://kunine.github.io/resume/)
+[在线访问](https://bokunlin.github.io/resume/)
 
 ## Build Setup
 
